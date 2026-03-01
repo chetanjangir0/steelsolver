@@ -48,6 +48,7 @@ class StaadModel:
             f.write("START JOB INFORMATION\n")
             f.write("ENGINEER DATE\n")
             f.write("END JOB INFORMATION\n\n")
+            f.write("INPUT WIDTH 79\n\n")
 
             f.write(f"UNIT {self.unit}\n\n")
 
