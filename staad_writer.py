@@ -54,12 +54,12 @@ class StaadModel:
 
             f.write("JOINT COORDINATES\n")
             for node in self.nodes:
-                f.write(f"{node[0]} {node[1]} {node[2]} {node[3]}\n")
+                f.write(f"{node[0]} {node[1]} {node[2]} {node[3]};\n")
             f.write("\n")
 
             f.write("MEMBER INCIDENCES\n")
             for mem in self.members:
-                f.write(f"{mem[0]} {mem[1]} {mem[2]}\n")
+                f.write(f"{mem[0]} {mem[1]} {mem[2]};\n")
             f.write("\n")
 
             f.write(self.member_property_block + "\n")
