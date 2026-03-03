@@ -1,4 +1,4 @@
-from loading import Loading
+from loading import Loading, Zone, IMF, RF, ST, Soil
 from staad_writer import StaadModel
 
 span = 20
@@ -22,6 +22,14 @@ model.set_fixed_supports([1, 2])
 
 loading = Loading()
 loading.add_selfweight()
+
+loading.add_definition_IS1893_16(
+    Zone.II, 
+    RF.STEEL_SMRF,
+    IMF.All_other,
+    Soil.Medium,
+    ST.STEEL_MRF
+)
 
 model.set_load_block(loading.generate())
 

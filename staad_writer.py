@@ -74,7 +74,7 @@ class StaadModel:
 
             f.write(self.support_block + "\n")
 
-            f.write(self.load_block + "\n")
+            f.write(self.load_block)
 
             f.write("PERFORM ANALYSIS\n")
             f.write("FINISH\n")
