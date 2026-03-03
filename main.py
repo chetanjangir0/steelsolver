@@ -1,3 +1,4 @@
+from loading import Loading
 from staad_writer import StaadModel
 
 span = 20
@@ -17,10 +18,11 @@ model.add_member(2, 2, 4)
 model.add_member(3, 3, 5)
 model.add_member(3, 4, 5)
 
-# model.set_prismatic_property("1 TO 3", yd=0.6, zd=0.3)
-
 model.set_fixed_supports([1, 2])
 
-model.add_selfweight()
+loading = Loading()
+loading.add_selfweight()
+
+model.set_load_block(loading.generate())
 
 model.write("portal.std")

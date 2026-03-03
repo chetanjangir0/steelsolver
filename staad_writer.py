@@ -19,10 +19,12 @@ class StaadModel:
             "G 7.88462e+07\n"
             "TYPE STEEL\n"
             "STRENGTH FY 250000 FU 400000 RY 1.5 RT 1.2\n"
-            "END DEFINE MATERIAL"
+            "END DEFINE MATERIAL\n"
         )
-
-    # Geometry
+        self.constant_block = (
+            "CONSTANTS\n"
+            "MATERIAL STEEL ALL\n"
+        )
 
     def add_node(self, node_id: int, x: float, y: float, z: float):
         self.nodes.append((node_id, x, y, z))
@@ -30,7 +32,8 @@ class StaadModel:
     def add_member(self, member_id: int, start: int, end: int):
         self.members.append((member_id, start, end))
 
-    # Properties
+    def set_load_block(self, load_text: str):
+        self.load_block = load_text
 
     def set_prismatic_property(self, member_range: str, yd: float, zd: float):
         self.member_property_block = (
@@ -38,21 +41,9 @@ class StaadModel:
             f"{member_range} PRIS YD {yd} ZD {zd}\n"
         )
 
-    # Supports
-
     def set_fixed_supports(self, node_list: List[int]):
         nodes = " ".join(str(n) for n in node_list)
         self.support_block = f"SUPPORTS\n{nodes} FIXED\n"
-
-    # Loads
-
-    def add_selfweight(self):
-        self.load_block += (
-            "LOAD 1 LOADTYPE DEAD TITLE DL\n"
-            "SELFWEIGHT Y -1.1\n"
-        )
-
-    # Write File
 
     def write(self, filename: str):
         with open(filename, "w") as f:
@@ -78,6 +69,8 @@ class StaadModel:
             f.write(self.material_block + "\n")
             
             f.write(self.member_property_block + "\n")
+
+            f.write(self.constant_block + "\n")
 
             f.write(self.support_block + "\n")
 
