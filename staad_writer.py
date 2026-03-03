@@ -8,6 +8,19 @@ class StaadModel:
         self.member_property_block = ""
         self.support_block = ""
         self.load_block = ""
+        self.material_block = (
+            "DEFINE MATERIAL START\n"
+            "ISOTROPIC STEEL\n"
+            "E 2.05e+08\n"
+            "POISSON 0.3\n"
+            "DENSITY 76.8195\n"
+            "ALPHA 1.2e-05\n"
+            "DAMP 0.03\n"
+            "G 7.88462e+07\n"
+            "TYPE STEEL\n"
+            "STRENGTH FY 250000 FU 400000 RY 1.5 RT 1.2\n"
+            "END DEFINE MATERIAL"
+        )
 
     # Geometry
 
@@ -62,6 +75,8 @@ class StaadModel:
                 f.write(f"{mem[0]} {mem[1]} {mem[2]};\n")
             f.write("\n")
 
+            f.write(self.material_block + "\n")
+            
             f.write(self.member_property_block + "\n")
 
             f.write(self.support_block + "\n")
